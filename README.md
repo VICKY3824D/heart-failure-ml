@@ -65,6 +65,27 @@ Aplikasi web berbasis **Flask** untuk memprediksi risiko kematian pasien gagal j
 
    Tekan `Ctrl + C` di terminal untuk menghentikan server.
 
+## Melatih Ulang Model (Opsional)
+
+Jika ingin melatih ulang model di environment aktif (misalnya karena versi `scikit-learn` berbeda):
+
+1. Pastikan virtual environment sudah aktif dan dependensi dari `requirements.txt` sudah terpasang.
+2. Pastikan dataset `heart_failure_clinical_records_dataset.csv` berada di dalam folder `create_model/heart_failure/`.
+3. Jalankan skrip training dari root proyek (`heart_failure/`):
+
+   ```bash
+   python create_model/heart_failure/save_model.py
+   ```
+
+   *(Atau masuk ke `create_model/heart_failure/` lalu jalankan `python save_model.py`.)*
+
+   Opsi tambahan yang tersedia:
+   - `--tune` : menjalankan *hyperparameter tuning* (`GridSearchCV`) untuk Random Forest.
+   - `--model "<Nama Model>"` : memaksa memilih model tertentu sesuai tabel perbandingan.
+   - `--data <path/ke/file.csv>` : menentukan path file dataset CSV jika berada di lokasi lain.
+
+4. Setelah selesai, skrip akan menyimpan hasil ke `create_model/heart_failure/output/` sekaligus menyalin `heart_model.joblib`, `model_info.json`, dan grafik evaluasi ke folder aplikasi Flask (`heart_failure/` dan `static/img/`) secara otomatis.
+
 ## Endpoint Aplikasi
 
 | Route | Method | Keterangan |
@@ -78,6 +99,11 @@ Aplikasi web berbasis **Flask** untuk memprediksi risiko kematian pasien gagal j
 
 ```text
 heart_failure/
+├── create_model/
+│   └── heart_failure/
+│       ├── heart_failure_clinical_records_dataset.csv
+│       ├── output/       # Hasil training (model, info, grafik)
+│       └── save_model.py # Skrip training & evaluasi model
 ├── heart_api.py          # Aplikasi utama Flask & routing
 ├── heart_model.joblib    # Model terlatih
 ├── model_info.json       # Metadata model, metrik evaluasi, dan versi scikit-learn
@@ -88,5 +114,5 @@ heart_failure/
 
 ## Catatan
 
-- **Versi `scikit-learn`**: Model pada `model_info.json` dilatih menggunakan `scikit-learn` versi `1.9.1`. Jika versi `scikit-learn` di environment Anda berbeda, aplikasi akan menampilkan peringatan di halaman web (atau gagal memuat `heart_model.joblib` jika formatnya tidak kompatibel).
+- **Versi `scikit-learn`**: Model pada `model_info.json` dilatih menggunakan `scikit-learn` versi `1.9.1`. Jika versi `scikit-learn` di environment Anda berbeda, aplikasi akan menampilkan peringatan di halaman web (atau gagal memuat `heart_model.joblib` jika formatnya tidak kompatibel). Jalankan langkah pada bagian **Melatih Ulang Model** di atas untuk menyesuaikan model dengan environment Anda.
 - **Port sudah terpakai**: Secara default aplikasi berjalan di `127.0.0.1:5000`. Jika port `5000` sedang dipakai aplikasi lain, ubah baris `app.run()` pada `heart_api.py` menjadi misalnya `app.run(port=5001)`.
