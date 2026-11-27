@@ -44,7 +44,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-WEB_DIR = os.path.normpath(os.path.join(BASE_DIR, "..", "..", "web", "heart_failure"))
+WEB_DIR = os.path.normpath(os.path.join(BASE_DIR, "..", ".."))
 OUT_DIR = os.path.join(BASE_DIR, "output")
 IMG_DIR = os.path.join(OUT_DIR, "img")
 
@@ -273,7 +273,7 @@ def main():
     print("Model disimpan di:", model_path)
 
     # salin otomatis ke folder aplikasi Flask jika ada
-    if os.path.isdir(WEB_DIR):
+    if os.path.isfile(os.path.join(WEB_DIR, "heart_api.py")):
         shutil.copy(model_path, WEB_DIR)
         shutil.copy(os.path.join(OUT_DIR, "model_info.json"), WEB_DIR)
         web_img = os.path.join(WEB_DIR, "static", "img")
@@ -283,7 +283,7 @@ def main():
         print("File model, info, dan grafik sudah disalin ke:", WEB_DIR)
     else:
         print("Folder aplikasi Flask tidak ditemukan. Salin manual heart_model.joblib, "
-              "model_info.json, dan folder img ke folder web/heart_failure.")
+              "model_info.json, dan folder img ke folder aplikasi Flask (heart_failure).")
 
 
 if __name__ == "__main__":
