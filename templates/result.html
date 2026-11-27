@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block heading %}Hasil Prediksi{% endblock %}
+{% block body %}
+<section class="card">
+  <div class="verdict {{ 'bad' if pred == 1 else 'good' }}">
+    <div class="verdict-label">Prediksi model</div>
+    <div class="verdict-value">{{ status }}</div>
+    <div class="muted">Model: {{ model_name }}</div>
+  </div>
+
+  <h3>Probabilitas</h3>
+  <div class="bar-row"><span>Bertahan hidup</span>
+    <div class="bar"><div class="fill fill-good" style="width: {{ prob_survive }}%"></div></div><b>{{ prob_survive }}%</b></div>
+  <div class="bar-row"><span>Meninggal</span>
+    <div class="bar"><div class="fill fill-bad" style="width: {{ prob_dead }}%"></div></div><b>{{ prob_dead }}%</b></div>
+
+  <h3>Data yang dimasukkan</h3>
+  <table class="table">
+    {% for label, val in rows %}<tr><td>{{ label }}</td><td>{{ val }}</td></tr>{% endfor %}
+    <tr class="hl"><td>Output prediction</td><td>{{ status }}</td></tr>
+  </table>
+
+  <div class="alert alert-info">Hasil ini hanya perkiraan statistik dari model machine learning pada data kecil
+  (299 pasien) dan bukan diagnosis medis. Pada hasil evaluasi, model masih sering melewatkan pasien yang meninggal
+  (recall kelas Deceased terbatas), sehingga keputusan klinis tetap harus oleh tenaga medis.</div>
+  <div class="actions"><a class="btn" href="{{ url_for('index') }}">Prediksi Pasien Lain</a></div>
+</section>
+{% endblock %}

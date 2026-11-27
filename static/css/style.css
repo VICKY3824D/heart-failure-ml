@@ -1,0 +1,57 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Segoe UI", Roboto, Arial, sans-serif; background: #f3f5f9; color: #2d3748; display: flex; min-height: 100vh; }
+.sidebar { width: 220px; background: linear-gradient(180deg, #4f7cd6 0%, #2a45b0 100%); color: #fff; padding: 20px 0; flex-shrink: 0; }
+.brand { font-weight: 700; font-size: 14px; letter-spacing: 1px; padding: 0 20px 22px; line-height: 1.5; }
+.sidebar nav a { display: block; color: #dbe5ff; text-decoration: none; padding: 12px 20px; font-size: 14px; }
+.sidebar nav a:hover, .sidebar nav a.active { background: rgba(255,255,255,0.15); color: #fff; }
+.content { flex: 1; padding: 0 28px 24px; max-width: 1100px; }
+.topbar { font-size: 20px; text-align: center; padding: 22px 0 18px; color: #4a5568; }
+.card { background: #fff; border-radius: 8px; padding: 22px 26px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.card h3 { margin: 22px 0 10px; font-size: 16px; color: #2a4365; }
+.card h3:first-child { margin-top: 0; }
+.muted { color: #718096; font-size: 14px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px 24px; margin-top: 14px; }
+.field label { display: block; font-size: 14px; margin-bottom: 5px; font-weight: 600; }
+.field small { font-weight: 400; color: #718096; }
+.field input, .field select { width: 100%; padding: 9px 11px; border: 1px solid #cbd5e0; border-radius: 5px; font-size: 14px; background: #fff; }
+.field input:focus, .field select:focus { outline: none; border-color: #4f7cd6; box-shadow: 0 0 0 2px rgba(79,124,214,0.2); }
+.field.has-error input, .field.has-error select { border-color: #e53e3e; background: #fff5f5; }
+.err { color: #c53030; font-size: 12px; }
+.actions { margin-top: 22px; text-align: center; }
+.btn { display: inline-block; background: #3b5fd0; color: #fff; border: 0; padding: 10px 26px; border-radius: 5px; font-size: 14px; cursor: pointer; text-decoration: none; margin: 0 4px; }
+.btn:hover { background: #2a45b0; }
+.btn-secondary { background: #a0aec0; }
+.btn-secondary:hover { background: #718096; }
+.alert { padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; font-size: 14px; }
+.alert-error { background: #fff5f5; border: 1px solid #feb2b2; color: #c53030; }
+.alert-warn { background: #fffaf0; border: 1px solid #fbd38d; color: #975a16; }
+.alert-info { background: #ebf8ff; border: 1px solid #bee3f8; color: #2a4365; margin-top: 20px; }
+.verdict { border-radius: 8px; padding: 18px 22px; margin-bottom: 8px; }
+.verdict.good { background: #f0fff4; border: 1px solid #9ae6b4; }
+.verdict.bad { background: #fff5f5; border: 1px solid #feb2b2; }
+.verdict-label { font-size: 13px; color: #718096; }
+.verdict-value { font-size: 24px; font-weight: 700; margin: 4px 0; }
+.verdict.good .verdict-value { color: #276749; }
+.verdict.bad .verdict-value { color: #c53030; }
+.bar-row { display: flex; align-items: center; gap: 12px; margin: 8px 0; font-size: 14px; }
+.bar-row span { width: 120px; }
+.bar-row b { width: 60px; text-align: right; }
+.bar { flex: 1; background: #edf2f7; height: 16px; border-radius: 8px; overflow: hidden; }
+.fill { height: 100%; }
+.fill-good { background: #38a169; }
+.fill-bad { background: #dd6b20; }
+.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table td, .table th { padding: 9px 12px; border-bottom: 1px solid #e2e8f0; text-align: left; }
+.table td:first-child { color: #4a5568; width: 38%; }
+.table-compare td:first-child { width: auto; }
+.table th { background: #edf2f7; color: #2a4365; }
+.table tr.hl td { background: #ebf4ff; font-weight: 600; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-bottom: 20px; }
+.stat { background: #fff; border-radius: 8px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.stat span { display: block; font-size: 12px; color: #718096; }
+.stat b { font-size: 18px; color: #2a4365; }
+.center { text-align: center; margin-top: 14px; }
+.plot { max-width: 100%; height: auto; }
+.plot.small { max-width: 420px; }
+footer { text-align: center; font-size: 12px; color: #a0aec0; margin-top: 28px; }
+@media (max-width: 760px) { body { flex-direction: column; } .sidebar { width: 100%; } }

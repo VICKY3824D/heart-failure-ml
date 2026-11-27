@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Heart Failure Prediction{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">&#10084; HEART FAILURE<br>PREDICTION</div>
+    <nav>
+      <a href="{{ url_for('index') }}" class="{{ 'active' if active == 'predict' }}">Prediksi Pasien</a>
+      <a href="{{ url_for('dashboard') }}" class="{{ 'active' if active == 'dashboard' }}">Dashboard Model</a>
+    </nav>
+  </aside>
+  <main class="content">
+    <header class="topbar">{% block heading %}{% endblock %}</header>
+    {% if load_error %}<div class="alert alert-error">{{ load_error }}</div>{% endif %}
+    {% if warning %}<div class="alert alert-warn">{{ warning }}</div>{% endif %}
+    {% block body %}{% endblock %}
+    <footer>Proyek Penambangan Data &middot; Prediksi kematian pasien gagal jantung &middot; Bukan alat diagnosis medis</footer>
+  </main>
+</body>
+</html>

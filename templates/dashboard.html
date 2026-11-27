@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block heading %}Dashboard Model{% endblock %}
+{% block body %}
+{% if not info %}
+  <section class="card"><p>File <code>model_info.json</code> belum ada. Jalankan <code>save_model.py</code> terlebih dahulu.</p></section>
+{% else %}
+{% set best = (info.comparison | selectattr('Model', 'equalto', info.best_model) | list)[0] %}
+<section class="stats">
+  <div class="stat"><span>Model terpilih</span><b>{{ info.best_model }}</b></div>
+  <div class="stat"><span>Accuracy</span><b>{{ '%.3f' | format(best.Accuracy) }}</b></div>
+  <div class="stat"><span>F1 (macro)</span><b>{{ '%.3f' | format(best.F1) }}</b></div>
+  <div class="stat"><span>AUC</span><b>{{ '%.3f' | format(best.AUC) }}</b></div>
+  <div class="stat"><span>Recall Deceased</span><b>{{ '%.3f' | format(best.Recall_Deceased) }}</b></div>
+</section>
+
+<section class="card">
+  <h3>Data dan Pelatihan</h3>
+  <table class="table">
+    <tr><td>Total data</td><td>{{ info.n_total }} pasien ({{ info.class_counts.survived }} Survived, {{ info.class_counts.deceased }} Deceased)</td></tr>
+    <tr><td>Data training / testing</td><td>{{ info.n_train }} / {{ info.n_test }} (hold-out 70:30)</td></tr>
+    <tr><td>Fitur input</td><td>{{ info.features | join(', ') }}</td></tr>
+    <tr><td>Dilatih pada</td><td>{{ info.trained_at }} (scikit-learn {{ info.sklearn_version }})</td></tr>
+  </table>
+  <div class="center"><img class="plot small" src="{{ url_for('static', filename='img/class_dist.png') }}" alt="Distribusi kelas"></div>
+</section>
+
+<section class="card">
+  <h3>Perbandingan Model (data testing)</h3>
+  <table class="table table-compare">
+    <tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>AUC</th></tr>
+    {% for m in info.comparison %}
+    <tr class="{{ 'hl' if m.Model == info.best_model }}">
+      <td>{{ m.Model }}</td><td>{{ '%.3f' | format(m.Accuracy) }}</td><td>{{ '%.3f' | format(m.Precision) }}</td>
+      <td>{{ '%.3f' | format(m.Recall) }}</td><td>{{ '%.3f' | format(m.F1) }}</td><td>{{ '%.3f' | format(m.AUC) }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <p class="muted">Precision, Recall, dan F1 adalah rata-rata macro. Baris tersorot adalah model yang dipakai aplikasi.</p>
+  <div class="center"><img class="plot" src="{{ url_for('static', filename='img/roc.png') }}" alt="Kurva ROC"></div>
+</section>
+
+<section class="card">
+  <h3>Evaluasi Model Terpilih</h3>
+  {% set cr = info.classification_report %}
+  <table class="table table-compare">
+    <tr><th>Kelas</th><th>Precision</th><th>Recall</th><th>F1-score</th><th>Support</th></tr>
+    <tr><td>Survived (0)</td><td>{{ '%.2f' | format(cr['Survived']['precision']) }}</td><td>{{ '%.2f' | format(cr['Survived']['recall']) }}</td><td>{{ '%.2f' | format(cr['Survived']['f1-score']) }}</td><td>{{ cr['Survived']['support'] | int }}</td></tr>
+    <tr><td>Deceased (1)</td><td>{{ '%.2f' | format(cr['Deceased']['precision']) }}</td><td>{{ '%.2f' | format(cr['Deceased']['recall']) }}</td><td>{{ '%.2f' | format(cr['Deceased']['f1-score']) }}</td><td>{{ cr['Deceased']['support'] | int }}</td></tr>
+  </table>
+  <div class="center"><img class="plot small" src="{{ url_for('static', filename='img/confusion.png') }}" alt="Confusion matrix"></div>
+</section>
+
+<section class="card">
+  <h3>Fitur yang Paling Berpengaruh</h3>
+  <div class="center"><img class="plot" src="{{ url_for('static', filename='img/feature_importance.png') }}" alt="Feature importance"></div>
+</section>
+{% endif %}
+{% endblock %}

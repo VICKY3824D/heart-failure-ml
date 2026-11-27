@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block heading %}Prediksi Kematian Pasien Gagal Jantung{% endblock %}
+{% block body %}
+<section class="card">
+  <p class="muted">Masukkan data rekam medis pasien, lalu tekan <b>Prediksi</b>. Model memperkirakan apakah pasien
+  berisiko meninggal (<i>DEATH_EVENT</i>) selama masa pengamatan.</p>
+  {% if errors %}<div class="alert alert-error">Periksa kembali isian yang ditandai merah.</div>{% endif %}
+  <form method="post" action="{{ url_for('prediction_result') }}" novalidate>
+    <div class="grid">
+    {% for f in fields %}
+      <div class="field {{ 'has-error' if errors.get(f.name) }}">
+        <label for="{{ f.name }}">{{ f.label }}{% if f.unit %} <small>({{ f.unit }})</small>{% endif %}</label>
+        {% if f.type == 'binary' %}
+          <select id="{{ f.name }}" name="{{ f.name }}">
+            <option value="">-- pilih --</option>
+            {% for val, text in f.options %}
+              <option value="{{ val }}" {{ 'selected' if form.get(f.name) == val }}>{{ text }}</option>
+            {% endfor %}
+          </select>
+        {% else %}
+          <input id="{{ f.name }}" name="{{ f.name }}" type="number" step="{{ f.step }}"
+                 min="{{ f.min }}" max="{{ f.max }}" placeholder="contoh: {{ f.example }}"
+                 value="{{ form.get(f.name, '') }}">
+        {% endif %}
+        {% if errors.get(f.name) %}<span class="err">{{ errors[f.name] }}</span>{% endif %}
+      </div>
+    {% endfor %}
+    </div>
+    <div class="actions">
+      <button type="reset" class="btn btn-secondary">Reset</button>
+      <button type="submit" class="btn">Prediksi</button>
+    </div>
+  </form>
+</section>
+{% endblock %}
