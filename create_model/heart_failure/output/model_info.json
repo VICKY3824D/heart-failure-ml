@@ -1,0 +1,175 @@
+{
+  "best_model": "Neural Network (MLP)",
+  "features": [
+    "age",
+    "anaemia",
+    "creatinine_phosphokinase",
+    "diabetes",
+    "ejection_fraction",
+    "high_blood_pressure",
+    "platelets",
+    "serum_creatinine",
+    "serum_sodium",
+    "sex",
+    "smoking"
+  ],
+  "comparison": [
+    {
+      "Model": "Neural Network (MLP)",
+      "Accuracy": 0.7222,
+      "Precision": 0.75,
+      "Recall": 0.6785,
+      "F1": 0.6791,
+      "AUC": 0.7409,
+      "Recall_Deceased": 0.4324
+    },
+    {
+      "Model": "AdaBoost",
+      "Accuracy": 0.7111,
+      "Precision": 0.7288,
+      "Recall": 0.669,
+      "F1": 0.6693,
+      "AUC": 0.7466,
+      "Recall_Deceased": 0.4324
+    },
+    {
+      "Model": "Decision Tree",
+      "Accuracy": 0.6778,
+      "Precision": 0.6667,
+      "Recall": 0.6652,
+      "F1": 0.6659,
+      "AUC": 0.6652,
+      "Recall_Deceased": 0.5946
+    },
+    {
+      "Model": "Random Forest",
+      "Accuracy": 0.6778,
+      "Precision": 0.6791,
+      "Recall": 0.6367,
+      "F1": 0.6344,
+      "AUC": 0.795,
+      "Recall_Deceased": 0.4054
+    },
+    {
+      "Model": "Logistic Regression",
+      "Accuracy": 0.6778,
+      "Precision": 0.6944,
+      "Recall": 0.6285,
+      "F1": 0.6204,
+      "AUC": 0.7629,
+      "Recall_Deceased": 0.3514
+    },
+    {
+      "Model": "K-Nearest Neighbors",
+      "Accuracy": 0.6,
+      "Precision": 0.6,
+      "Recall": 0.5217,
+      "F1": 0.441,
+      "AUC": 0.6611,
+      "Recall_Deceased": 0.0811
+    }
+  ],
+  "confusion_matrix": [
+    [
+      49,
+      4
+    ],
+    [
+      21,
+      16
+    ]
+  ],
+  "classification_report": {
+    "Survived": {
+      "precision": 0.7,
+      "recall": 0.9245283018867925,
+      "f1-score": 0.7967479674796748,
+      "support": 53.0
+    },
+    "Deceased": {
+      "precision": 0.8,
+      "recall": 0.43243243243243246,
+      "f1-score": 0.5614035087719298,
+      "support": 37.0
+    },
+    "accuracy": 0.7222222222222222,
+    "macro avg": {
+      "precision": 0.75,
+      "recall": 0.6784803671596125,
+      "f1-score": 0.6790757381258024,
+      "support": 90.0
+    },
+    "weighted avg": {
+      "precision": 0.7411111111111109,
+      "recall": 0.7222222222222222,
+      "f1-score": 0.6999952455664907,
+      "support": 90.0
+    }
+  },
+  "feature_importance": [
+    {
+      "Feature": "serum_creatinine",
+      "RF_Importance": 0.2398,
+      "LR_Coefficient": 0.8129
+    },
+    {
+      "Feature": "ejection_fraction",
+      "RF_Importance": 0.1768,
+      "LR_Coefficient": -0.8429
+    },
+    {
+      "Feature": "age",
+      "RF_Importance": 0.1348,
+      "LR_Coefficient": 0.7644
+    },
+    {
+      "Feature": "creatinine_phosphokinase",
+      "RF_Importance": 0.1291,
+      "LR_Coefficient": 0.1655
+    },
+    {
+      "Feature": "platelets",
+      "RF_Importance": 0.1226,
+      "LR_Coefficient": -0.0787
+    },
+    {
+      "Feature": "serum_sodium",
+      "RF_Importance": 0.1013,
+      "LR_Coefficient": -0.1333
+    },
+    {
+      "Feature": "sex",
+      "RF_Importance": 0.0219,
+      "LR_Coefficient": -0.3393
+    },
+    {
+      "Feature": "high_blood_pressure",
+      "RF_Importance": 0.0199,
+      "LR_Coefficient": 0.2006
+    },
+    {
+      "Feature": "anaemia",
+      "RF_Importance": 0.0197,
+      "LR_Coefficient": 0.0447
+    },
+    {
+      "Feature": "diabetes",
+      "RF_Importance": 0.018,
+      "LR_Coefficient": 0.0582
+    },
+    {
+      "Feature": "smoking",
+      "RF_Importance": 0.0161,
+      "LR_Coefficient": 0.1157
+    }
+  ],
+  "n_total": 299,
+  "n_train": 209,
+  "n_test": 90,
+  "class_counts": {
+    "survived": 203,
+    "deceased": 96
+  },
+  "sklearn_version": "1.9.1",
+  "trained_at": "2026-11-15 06:37"
+}
